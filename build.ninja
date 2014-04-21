@@ -3,6 +3,11 @@
 # Make coffee.
 rule coffee
   command = nodejs node_modules/.bin/coffeelint --quiet $in && cat $in | nodejs node_modules/.bin/coffee --compile --stdio | nodejs node_modules/.bin/uglifyjs - --output $out --comments --compress
+
 build app.js: coffee coffee/app.coffee
 
 # LESS.
+rule less
+  command = cat $in | nodejs node_modules/.bin/lessc --clean-css - $out
+
+build app.css: less less/app.less

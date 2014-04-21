@@ -2,4 +2,6 @@ User-agent: *
 Disallow: /.gitattributes
 Disallow: /.gitignore
 Disallow: /build.ninja
+Disallow: /coffee
+Disallow: /less
 Disallow: /node_modules
