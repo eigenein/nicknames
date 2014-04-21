@@ -1,4 +1,5 @@
 User-agent: *
-Disallow: /node_modules
 Disallow: /.gitattributes
 Disallow: /.gitignore
+Disallow: /build.ninja
+Disallow: /node_modules
