@@ -16,12 +16,13 @@
           box-shadow: 0 0 0 1px fade(@primary-color, 10%), 0 3px 4px -3px fade(@primary-color, 30%);
 }
 
-::-moz-selection { background: @blue-light; }
-::selection { background: @blue-light; } 
+::-moz-selection { background: @blue-light; color: white; }
+::selection { background: @blue-light; color: white; }
 
 body, html {
   background: @gray-light;
   font-size: 15px;
+  color: @gray-darkest;
 }
 
 ul {
@@ -88,8 +89,8 @@ nav {
   margin-right: auto;
 }
 
-@left-width: 200px;
-@right-width: 160px;
+@left-width: 202px;
+@right-width: 162px;
 
 aside {
   width: auto;
@@ -100,11 +101,20 @@ aside {
     bottom: 0;
     top: 0;
     width: @left-width;
+
+    .overlay {
+      position: absolute;
+      bottom: 202px;
+      left: 0;
+      right: 0;
+      height: 200px;
+      background: linear-gradient(transparent 0%, @gray-lightest 100%);
+    }
   }
 
   &.right {
     right: 0;
-    bottom: 0;
+    height: 602px;
     top: 0;
     width: @right-width;
   }
@@ -119,7 +129,7 @@ aside {
 
 @settings-height: 160px;
 
-.settings {
+section.settings {
   top: 0;
   left: @space + @left-width;
   right: @space + @right-width;
@@ -128,7 +138,7 @@ aside {
 
 @nickname-height: 80px;
 
-.nickname {
+section.nickname {
   top: @settings-height + @space;
   left: @space + @left-width;
   right: @space + @right-width;
@@ -144,7 +154,7 @@ aside {
   }
 }
 
-.history {
+section.history {
   top: @settings-height + @space + @nickname-height + @space;
   bottom: 0;
   left: @space + @left-width;
@@ -158,4 +168,38 @@ h2 {
   font-weight: normal;
   padding: @space;
   border-bottom: 1px solid @gray-light;
+}
+
+ul.history {
+  position: absolute;
+  bottom: 202px;
+  top: 37px;
+  right: 0;
+  left: 0;
+  overflow: hidden;
+
+  li {
+    border-bottom: 1px dashed @gray-light;
+    padding: 5px @space;
+    overflow: hidden;
+  }
+}
+
+.banner {
+  border: 1px dotted red;
+  position: absolute;
+}
+
+.left .banner {
+  width: 200px;
+  height: 200px;
+  bottom: 0;
+  left: 0;
+}
+
+.right .banner {
+  width: 160px;
+  height: 600px;
+  top: 0;
+  left: 0;
 }
