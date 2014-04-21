@@ -10,4 +10,4 @@ build app.js: coffee coffee/app.coffee
 rule less
   command = cat $in | nodejs node_modules/.bin/lessc --clean-css - $out
 
-build app.css: less less/app.less
+build app.css: less less/reset.less less/app.less
