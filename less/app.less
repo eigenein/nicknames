@@ -1,0 +1,59 @@
+
+@blue-dark: #0099CC;
+@blue-light: #33B5E5;
+
+@gray-dark: #CCCCCC;
+@gray-darker: #808080;
+@gray-darkest: #333;
+
+@gray-light: #EAEAEA;
+@gray-lighter: #F0F0F0;
+@gray-lightest: #FAFAFA;
+
+body, html {
+  background: @gray-light;
+  font-size: 15px;
+}
+
+ul {
+  list-style: none;
+}
+
+h1 {
+  font-weight: normal;
+}
+
+nav {
+  @height: 36px;
+
+  box-shadow: 0 0 0 1px fade(@blue-light, 10%), 0 3px 4px -3px fade(@blue-light, 30%);
+
+  background: @blue-dark;
+  height: @height;
+  width: 100%;
+
+  a {
+    color: white;
+    text-decoration: none;
+    display: inline-block;
+
+    &:hover {
+      color: @gray-light;
+    }
+  }
+
+  h1 {
+    font-size: 18px;
+    a {
+      padding: 0 18px;
+    }
+  }
+
+  ul {
+    li {
+      display: inline-block;
+      height: @height;
+      line-height: @height;
+    }
+  }
+}
