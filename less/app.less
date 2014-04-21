@@ -10,6 +10,15 @@
 @gray-lighter: #F0F0F0;
 @gray-lightest: #FAFAFA;
 
+.box-shadow(@primary-color) {
+  -webkit-box-shadow: 0 0 0 1px fade(@primary-color, 10%), 0 3px 4px -3px fade(@primary-color, 30%);
+     -moz-box-shadow: 0 0 0 1px fade(@primary-color, 10%), 0 3px 4px -3px fade(@primary-color, 30%);
+          box-shadow: 0 0 0 1px fade(@primary-color, 10%), 0 3px 4px -3px fade(@primary-color, 30%);
+}
+
+::-moz-selection { background: @blue-light; }
+::selection { background: @blue-light; } 
+
 body, html {
   background: @gray-light;
   font-size: 15px;
@@ -23,13 +32,13 @@ h1 {
   font-weight: normal;
 }
 
-nav {
-  @height: 36px;
+@nav-height: 36px;
 
-  box-shadow: 0 0 0 1px fade(@blue-light, 10%), 0 3px 4px -3px fade(@blue-light, 30%);
+nav {
+  .box-shadow(@blue-light);
 
   background: @blue-dark;
-  height: @height;
+  height: @nav-height;
   width: 100%;
 
   a {
@@ -52,8 +61,91 @@ nav {
   ul {
     li {
       display: inline-block;
-      height: @height;
-      line-height: @height;
+      height: @nav-height;
+      line-height: @nav-height;
     }
   }
+}
+
+@space: 10px;
+
+.content {
+  width: auto;
+  height: auto;
+  position: absolute;
+  top: @nav-height;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: @space;
+}
+
+.content-inner {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@left-width: 200px;
+@right-width: 160px;
+
+aside {
+  width: auto;
+  height: auto;
+
+  &.left {
+    left: 0;
+    bottom: 0;
+    top: 0;
+    width: @left-width;
+  }
+
+  &.right {
+    right: 0;
+    bottom: 0;
+    top: 0;
+    width: @right-width;
+  }
+}
+
+.container {
+  .box-shadow(@gray-lightest);
+  background: @gray-lightest;
+  border: 1px solid @gray-dark;
+  position: absolute;
+}
+
+@settings-height: 160px;
+
+.settings {
+  top: 0;
+  left: @space + @left-width;
+  right: @space + @right-width;
+  height: @settings-height;
+}
+
+@nickname-height: 80px;
+
+.nickname {
+  top: @settings-height + @space;
+  left: @space + @left-width;
+  right: @space + @right-width;
+  height: @nickname-height;
+  line-height: @nickname-height;
+  text-align: center;
+
+  span {
+    font-size: @nickname-height / 2;
+    text-transform: uppercase;
+    border-bottom: 1px dotted @gray-darkest;
+  }
+}
+
+.history {
+  top: @settings-height + @space + @nickname-height + @space;
+  bottom: 0;
+  left: @space + @left-width;
+  right: @space + @right-width;
 }
