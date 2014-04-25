@@ -14,4 +14,4 @@ update_recent = (selector, item) ->
 update_live = ->
   console.log("Live.")
   update_recent("#live", gen())
-  setTimeout(update_live, 500 + 1000 * Math.random())
+  setTimeout(update_live, 200 + 2000 * Math.random())
