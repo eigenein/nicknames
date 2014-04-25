@@ -81,11 +81,12 @@ nav {
 }
 
 .content-inner {
-  width: 100%;
+  width: 1024px;
   height: 100%;
   position: relative;
   margin-left: auto;
   margin-right: auto;
+  min-height: 620px;
 }
 
 @left-width: 202px;
@@ -100,15 +101,6 @@ aside {
     bottom: 0;
     top: 0;
     width: @left-width;
-
-    .overlay {
-      position: absolute;
-      bottom: 202px;
-      left: 0;
-      right: 0;
-      height: 100px;
-      background: linear-gradient(transparent 0%, @gray-lightest 100%);
-    }
   }
 
   &.right {
@@ -117,6 +109,15 @@ aside {
     top: 0;
     width: @right-width;
   }
+}
+
+.overlay {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 100px;
+  bottom: 0;
+  background: linear-gradient(transparent 0%, @gray-lightest 100%);
 }
 
 .container {
@@ -153,11 +154,18 @@ section.nickname {
   }
 }
 
-section.history {
+.history {
   top: @settings-height + @space + @nickname-height + @space;
   bottom: 0;
   left: @space + @left-width;
   right: @space + @right-width;
+  overflow: hidden;
+
+  li {
+    font-size: 32px;
+    text-align: center;
+    text-transform: uppercase;
+  }
 }
 
 h2 {
@@ -169,9 +177,8 @@ h2 {
   border-bottom: 1px solid @gray-light;
 }
 
-ul.history {
+.recent {
   position: absolute;
-  bottom: 202px;
   top: 37px;
   right: 0;
   left: 0;
@@ -181,6 +188,16 @@ ul.history {
     border-bottom: 1px dashed @gray-light;
     padding: 5px @space;
     overflow: hidden;
+  }
+}
+
+.left {
+  .recent {
+    bottom: 202px;
+  }
+
+  .overlay {
+    bottom: 202px;
   }
 }
 
@@ -201,4 +218,22 @@ ul.history {
   height: 600px;
   top: 0;
   left: 0;
+}
+
+.contact {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  color: @gray-darker;
+  width: 160px;
+  font-size: 12px;
+  text-align: center;
+
+  &:hover {
+    color: @gray-darkest;
+  }
+
+  &:active {
+    color: @gray-darker;
+  }
 }
