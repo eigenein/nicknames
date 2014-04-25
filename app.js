@@ -1,1 +1,1 @@
-(function(){}).call(this);
+(function(){var gen,update_live,update_recent;$(function(){return console.log("Ready."),update_live()}),update_recent=function(selector,item){return $("<li>"+item+"</li>").hide().css("opacity",0).prependTo(selector).slideDown("slow").animate({opacity:1})},update_live=function(){return console.log("Live."),update_recent("#live",gen()),setTimeout(update_live,500+1e3*Math.random())},gen=function(){return"testtest"}}).call(this);

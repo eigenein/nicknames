@@ -4,7 +4,7 @@
 rule coffee
   command = nodejs node_modules/.bin/coffeelint --quiet $in && cat $in | nodejs node_modules/.bin/coffee --compile --stdio | nodejs node_modules/.bin/uglifyjs - --output $out --comments --compress
 
-build app.js: coffee coffee/app.coffee
+build app.js: coffee coffee/app.coffee coffee/gen.coffee
 
 # LESS.
 rule less
