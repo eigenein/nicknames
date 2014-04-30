@@ -59,6 +59,8 @@ nav {
   }
 
   ul {
+    text-align: center;
+
     li {
       display: inline-block;
       height: @nav-height;
@@ -119,7 +121,7 @@ aside {
   right: 0;
   height: 100px;
   bottom: 0;
-  background: linear-gradient(transparent 0%, @gray-lightest 100%);
+  background: linear-gradient(rgba(255, 255, 255, 0) 0%, @gray-lightest 100%);
   pointer-events: none;
 }
 
@@ -130,13 +132,18 @@ aside {
   position: absolute;
 }
 
-@settings-height: 200px;
+@settings-height: 240px;
 
 section.settings {
   top: 0;
   left: @space + @left-width;
   right: @space + @right-width;
   height: @settings-height;
+
+  & .space {
+    width: @space;
+    display: inline-block;
+  }
 }
 
 @nickname-height: 80px;
@@ -282,15 +289,28 @@ label.button {
   .btn(@blue-light, @blue-dark);
 }
 
-#controls-container {
+.controls-container {
   margin: 10px;
 }
 
 input[type=radio] {
   display: none;
+
+  &:checked + label {
+    background: @blue-dark;
+  }
 }
 
 body, html {
   min-width: @space + @content-inner-width + @space;
-  min-height: @nav-height + @space + 600px + 2 * @space + @space;
+  min-height: @nav-height + @space + 600px + @space;
+}
+
+label {
+  display: inline-block;
+}
+
+h3 {
+  font-weight: normal;
+  color: @gray-darker;
 }
