@@ -6,5 +6,7 @@ Disallow: /coffee
 Disallow: /less
 Disallow: /node_modules
 Disallow: /CNAME
+Disallow: /gen.py
+Disallow: /sets
 
 Disallow: /
