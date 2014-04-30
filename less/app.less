@@ -80,8 +80,10 @@ nav {
   padding: @space;
 }
 
+@content-inner-width: 1024px;
+
 .content-inner {
-  width: 1024px;
+  width: @content-inner-width;
   height: 100%;
   position: relative;
   margin-left: auto;
@@ -228,6 +230,8 @@ h2 {
   width: 160px;
   font-size: 12px;
   text-align: center;
+  height: @space * 2;
+  line-height: @space * 2;
 
   &:hover {
     color: @gray-darkest;
@@ -286,5 +290,6 @@ input[type=radio] {
 }
 
 body, html {
-  min-width: @space + 1024px + @space;
+  min-width: @space + @content-inner-width + @space;
+  min-height: @nav-height + @space + 600px + 2 * @space + @space;
 }
