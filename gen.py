@@ -1,9 +1,10 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # coding: utf-8
 
 from __future__ import print_function
 
 import argparse
+import collections
 import json
 import os
 
@@ -17,19 +18,37 @@ def generate_model(set_file):
     "Generates model for the specified set file."
 
     print("Set: %s" % set_file.name)
-    basename = os.path.basename(set_file.name)
-    coffee_name = os.path.join("coffee", "%s%scoffee" % (os.path.splitext(basename)[0], os.extsep))
     
-    print("Generating %s…" % coffee_name)
-    model = {}
+    print("Counting ngrams…")
+    bigram_counter, trigram_counter = collections.Counter(), collections.Counter()
     for word in set_file:
         word = word.strip()
+        for chars in trigrams(word):
+            bigram_counter[chars[:2]] += 1
+            trigram_counter[chars] += 1
+
+    print("Generating model…")
+    model, p_counter = collections.defaultdict(list), collections.Counter()
+    for chars, count in trigram_counter.items():
+        p = count / bigram_counter[chars[:2]]
+        p_counter[chars[:2]] += p
+        model[chars[:2]].append((chars[2], round(p_counter[chars[:2]], 3)))
+
+    model_name = os.path.splitext(os.path.basename(set_file.name))[0]
+    coffee_name = os.path.join("coffee", "models%s%s%scoffee" % (os.extsep, model_name, os.extsep))
+
+    print("Writing %s…" % coffee_name)
+    with open(coffee_name, "wt", encoding="utf-8") as coffee:
+        print("models = models or {}", file=coffee)
+        print("""models["%s"] = %s""" % (model_name, json.dumps(model, indent=2)), file=coffee)
+
+    print("Done.")
 
 
 def trigrams(word):
     "Generates trigrams for the specified word."
 
-    current = "$" * 3
+    current = "$$$"
     for char in word:
         current = current[1:] + char
         yield current
