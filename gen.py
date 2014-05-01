@@ -22,7 +22,7 @@ def generate_model(set_file):
     print("Counting ngrams…")
     bigram_counter, trigram_counter = collections.Counter(), collections.Counter()
     for word in set_file:
-        word = word.strip()
+        word = word.strip().lower()
         for chars in trigrams(word):
             bigram_counter[chars[:2]] += 1
             trigram_counter[chars] += 1
