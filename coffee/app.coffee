@@ -25,7 +25,13 @@ update_recent = (object, item) ->
     object.counter += 1
 
 update_live = ->
-  update_recent(recent.live, gen())
+  update_recent(
+    recent.live
+    gen(
+      models[Math.floor(Math.random() * models.length)]
+      3 + 17 * Math.random()
+    )
+  )
   setTimeout(update_live, 200 + 2000 * Math.random())
 
 update_nickname = ->

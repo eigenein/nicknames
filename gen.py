@@ -28,11 +28,14 @@ def generate_model(set_file):
             trigram_counter[chars] += 1
 
     print("Generating model…")
-    model, p_counter = collections.defaultdict(list), collections.Counter()
+    model, breakable, p_counter = collections.defaultdict(list), set(), collections.Counter()
     for chars, count in trigram_counter.items():
-        p = count / bigram_counter[chars[:2]]
-        p_counter[chars[:2]] += p
-        model[chars[:2]].append((chars[2], round(p_counter[chars[:2]], 3)))
+        if chars[2] != "$":
+            p = count / bigram_counter[chars[:2]]
+            p_counter[chars[:2]] += p
+            model[chars[:2]].append((chars[2], round(p_counter[chars[:2]], 3)))
+        else:
+            breakable.add(chars[:2])
 
     model_name = os.path.splitext(os.path.basename(set_file.name))[0]
     coffee_name = os.path.join("coffee", "models%s%s%scoffee" % (os.extsep, model_name, os.extsep))
@@ -40,7 +43,9 @@ def generate_model(set_file):
     print("Writing %s…" % coffee_name)
     with open(coffee_name, "wt", encoding="utf-8") as coffee:
         print("models = models or {}", file=coffee)
-        print("""models["%s"] = %s""" % (model_name, json.dumps(model, indent=2)), file=coffee)
+        print("""models["%s"] = {}""" % model_name, file=coffee)
+        print("""models["%s"].p = %s""" % (model_name, json.dumps(model, indent=2)), file=coffee)
+        print("""models["%s"].breakable = %s""" % (model_name, json.dumps(list(breakable), indent=2)), file=coffee)
 
     print("Done.")
 

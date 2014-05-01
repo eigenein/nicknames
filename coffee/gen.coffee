@@ -5,15 +5,20 @@ gen = (model, length) ->
 
   word = "$$"
   loop
-    console.log("Current:", word)
+
+    if word.length >= length and word.slice(-2) in model.breakable
+      break
+
+    entries = model.p[word.slice(-2)]
+    if not entries
+      break
+
     r = Math.random()
-    for entry in model[word.slice(-2)]
+    for entry in entries
       [char, p] = entry
-      console.log("Trying:", char, p)
       if r < p
         word += char
         break
-    break if word.slice(-1) == "$"
 
   word = word.replace(/\$/g, "")
 
