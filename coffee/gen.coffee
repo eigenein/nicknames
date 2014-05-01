@@ -1,9 +1,7 @@
 
 gen = (model, length) ->
-  model = model or models["human-rus"]  # TODO
-  length = length or 10  # TODO
-
   word = "$$"
+
   loop
 
     if word.length >= length and word.slice(-2) in model.breakable
