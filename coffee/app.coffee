@@ -1,5 +1,8 @@
 
 $ ->
+  window.models = models  # DEBUG
+  for model of models
+    console.log("Found model:", model)
   window.recent = {
     live: {el: $("#live"), counter: 0},
     last: {el: $("#last"), counter: 0},
@@ -22,7 +25,6 @@ update_recent = (object, item) ->
     object.counter += 1
 
 update_live = ->
-  console.log("Live.")
   update_recent(recent.live, gen())
   setTimeout(update_live, 200 + 2000 * Math.random())
 
