@@ -30,7 +30,7 @@ update_live = ->
   setTimeout(update_live, 200 + 2000 * Math.random())
 
 update_live_once = ->
-  update_recent(recent.live, gen(choose_model(), 6 + 10 * Math.random()))
+  update_recent(recent.live, gen(choose_model(), 6 + 8 * Math.random()))
 
 update_nickname = ->
   # Update nickname field.
