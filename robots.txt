@@ -1,12 +1,8 @@
 User-agent: *
-Disallow: /.gitattributes
-Disallow: /.gitignore
 Disallow: /build.ninja
+Disallow: /CNAME
 Disallow: /coffee
+Disallow: /gen.py
 Disallow: /less
 Disallow: /node_modules
-Disallow: /CNAME
-Disallow: /gen.py
 Disallow: /sets
-
-Disallow: /
