@@ -30,13 +30,16 @@ update_live = ->
   setTimeout(update_live, 200 + 2000 * Math.random())
 
 update_live_once = ->
-  update_recent(recent.live, gen(choose_model(), 6 + 8 * Math.random()))
+  update_recent(
+    recent.live
+    gen(choose_model(), Math.floor(6 + 8 * Math.random()))
+  )
 
 update_nickname = ->
   # Update nickname field.
-  el = $("#nickname")
-  nickname = gen(choose_model(), 8)  # TODO
-  el.text(nickname)
+  length = parseInt($("input[name=nickname-length]:checked").val())
+  nickname = gen(choose_model(), length)
+  $("#nickname").text(nickname)
   update_recent(recent.last, nickname)
 
 choose_model = (model_names) ->
