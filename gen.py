@@ -22,6 +22,8 @@ def generate_model(_in, out):
     bigram_counter, trigram_counter = collections.Counter(), collections.Counter()
     for word in _in:
         word = word.strip().lower()
+        if not word:
+            continue
         for chars in trigrams(word):
             bigram_counter[chars[:2]] += 1
             trigram_counter[chars] += 1

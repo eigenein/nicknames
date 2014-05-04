@@ -4,15 +4,16 @@
 rule model
   command = python3 gen.py --in "$in" --out "$out"
 
-build coffee/models.human-rus.coffee: model sets/human-rus.txt | gen.py
 build coffee/models.human-en-female.coffee: model sets/human-en-female.txt | gen.py
 build coffee/models.human-en-male.coffee: model sets/human-en-male.txt | gen.py
+build coffee/models.human-ru-female.coffee: model sets/human-ru-female.txt | gen.py
+build coffee/models.human-ru-male.coffee: model sets/human-ru-male.txt | gen.py
 
 # Make coffee.
 rule coffee
   command = nodejs node_modules/.bin/coffeelint --quiet $in && cat $in | nodejs node_modules/.bin/coffee --compile --stdio | nodejs node_modules/.bin/uglifyjs - --output $out --comments --compress
 
-build app.js: coffee coffee/app.coffee coffee/gen.coffee coffee/models.human-rus.coffee coffee/models.human-en-female.coffee coffee/models.human-en-male.coffee
+build app.js: coffee coffee/app.coffee coffee/gen.coffee coffee/models.human-en-female.coffee coffee/models.human-en-male.coffee coffee/models.human-ru-male.coffee coffee/models.human-ru-female.coffee
 
 # LESS.
 rule less
