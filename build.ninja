@@ -15,7 +15,7 @@ build coffee/models.dwarf.coffee: model sets/dwarf.txt | gen.py
 
 # Make coffee.
 rule coffee
-  command = nodejs node_modules/.bin/coffeelint --quiet $in && cat $in | nodejs node_modules/.bin/coffee --compile --stdio | nodejs node_modules/.bin/uglifyjs - --output $out --comments --compress
+  command = nodejs node_modules/.bin/coffeelint --quiet $in && cat $in | nodejs node_modules/.bin/coffee --compile --stdio | nodejs node_modules/.bin/uglifyjs - --output $out --comments --compress --mangle
 
 build app.js: coffee coffee/app.coffee coffee/gen.coffee coffee/models.human-en-female.coffee coffee/models.human-en-male.coffee coffee/models.human-ru-male.coffee coffee/models.human-ru-female.coffee coffee/models.elf.coffee coffee/models.dwarf.coffee
 
