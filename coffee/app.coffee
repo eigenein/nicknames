@@ -1,11 +1,16 @@
 
 $ ->
+  # Models.
   window.n = 3
   window.models = models  # DEBUG
+  # Cache elements.
   window.recent =
     live: {el: $("#live"), counter: 0}
     last: {el: $("#last"), counter: 0}
-  $("#btn-gen").on("click", update_nickname)
+  # Set handlers.
+  $("#btn-gen, #nickname").on("click", update_nickname)
+  $("#nickname").mousedown((event) -> event.preventDefault())
+  # Initialize controls.
   update_nickname()
   update_live_once() for [1..40]
   update_live()
