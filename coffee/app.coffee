@@ -38,10 +38,11 @@ update_live_once = ->
 update_nickname = ->
   # Update nickname field.
   length = parseInt($("input[name=nickname-length]:checked").val())
-  nickname = gen(choose_model(), length)
+  name = $("input[name=nt]:checked").val()
+  nickname = gen(models[name], length)
   $("#nickname").text(nickname)
   update_recent(recent.last, nickname)
 
-choose_model = (model_names) ->
-  model_names = model_names or Object.keys(models)
+choose_model = ->
+  model_names = Object.keys(models)
   models[model_names[Math.floor(Math.random() * model_names.length)]]
