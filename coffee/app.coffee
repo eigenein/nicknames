@@ -1,10 +1,10 @@
 
 $ ->
+  window.n = 3
   window.models = models  # DEBUG
-  window.recent = {
+  window.recent =
     live: {el: $("#live"), counter: 0}
     last: {el: $("#last"), counter: 0}
-  }
   $("#btn-gen").on("click", update_nickname)
   update_nickname()
   update_live_once() for [1..40]

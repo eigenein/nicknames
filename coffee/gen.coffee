@@ -1,13 +1,15 @@
 
 gen = (model, length) ->
-  word = "$$"
+  word = Array(n).join("$")
 
   loop
 
-    if word.length >= length and word.slice(-2) in model.breakable
+    ending = word.slice(-n + 1)
+
+    if word.length >= length and ending in model.breakable
       break
 
-    entries = model.p[word.slice(-2)]
+    entries = model.p[ending]
     if not entries
       break
 

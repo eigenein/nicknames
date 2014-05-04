@@ -10,33 +10,33 @@ import os
 
 
 def main(args):
-    generate_model(args._in, args.out)
+    generate_model(args._in, args.out, args.n)
 
 
-def generate_model(_in, out):
+def generate_model(_in, out, n):
     "Generates model for the specified set file."
 
     print("Set: %s" % _in.name)
 
     print("Counting ngrams…")
-    bigram_counter, trigram_counter = collections.Counter(), collections.Counter()
+    mgram_counter, ngram_counter = collections.Counter(), collections.Counter()
     for word in _in:
         word = word.strip().lower()
         if not word:
             continue
-        for chars in trigrams(word):
-            bigram_counter[chars[:2]] += 1
-            trigram_counter[chars] += 1
+        for chars in ngrams(word, n):
+            mgram_counter[chars[:-1]] += 1
+            ngram_counter[chars] += 1
 
     print("Generating model…")
     model, breakable, p_counter = collections.defaultdict(list), set(), collections.Counter()
-    for chars, count in trigram_counter.items():
-        if chars[2] != "$":
-            p = count / bigram_counter[chars[:2]]
-            p_counter[chars[:2]] += p
-            model[chars[:2]].append((chars[2], round(p_counter[chars[:2]], 3)))
+    for chars, count in ngram_counter.items():
+        if chars[-1] != "$":
+            p = count / mgram_counter[chars[:-1]]
+            p_counter[chars[:-1]] += p
+            model[chars[:-1]].append((chars[-1], round(p_counter[chars[:-1]], 3)))
         else:
-            breakable.add(chars[:2])
+            breakable.add(chars[:-1])
 
     model_name = os.path.splitext(os.path.basename(_in.name))[0]
 
@@ -49,20 +49,21 @@ def generate_model(_in, out):
     print("Done.")
 
 
-def trigrams(word):
-    "Generates trigrams for the specified word."
+def ngrams(word, n):
+    "Generates n-grams for the specified word."
 
-    current = "$$$"
+    current = "$" * n
     for char in word:
         current = current[1:] + char
         yield current
-    yield current[1:] + "$"
-    yield current[2:] + "$$"
+    for i in range(1, n):
+        yield current[i:] + "$" * i
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("-i", "--in", dest="_in", metavar="FILE", required=True, type=argparse.FileType("rt"))
     parser.add_argument("-o", "--out", dest="out", metavar="FILE", required=True, type=argparse.FileType("wt"))
+    parser.add_argument("-n", dest="n", metavar="N", default=3, type=int)
     args = parser.parse_args()
     main(args)

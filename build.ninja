@@ -1,8 +1,10 @@
 # Builds A Perfect Nickname Generator.
 
+n = 3
+
 # Make models.
 rule model
-  command = python3 gen.py --in "$in" --out "$out"
+  command = python3 gen.py --in "$in" --out "$out" -n $n
 
 build coffee/models.human-en-female.coffee: model sets/human-en-female.txt | gen.py
 build coffee/models.human-en-male.coffee: model sets/human-en-male.txt | gen.py
