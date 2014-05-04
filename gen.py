@@ -10,18 +10,17 @@ import os
 
 
 def main(args):
-    for set_file in args.set_files:
-        generate_model(set_file)
+    generate_model(args._in, args.out)
 
 
-def generate_model(set_file):
+def generate_model(_in, out):
     "Generates model for the specified set file."
 
-    print("Set: %s" % set_file.name)
-    
+    print("Set: %s" % _in.name)
+
     print("Counting ngrams…")
     bigram_counter, trigram_counter = collections.Counter(), collections.Counter()
-    for word in set_file:
+    for word in _in:
         word = word.strip().lower()
         for chars in trigrams(word):
             bigram_counter[chars[:2]] += 1
@@ -37,15 +36,13 @@ def generate_model(set_file):
         else:
             breakable.add(chars[:2])
 
-    model_name = os.path.splitext(os.path.basename(set_file.name))[0]
-    coffee_name = os.path.join("coffee", "models%s%s%scoffee" % (os.extsep, model_name, os.extsep))
+    model_name = os.path.splitext(os.path.basename(_in.name))[0]
 
-    print("Writing %s…" % coffee_name)
-    with open(coffee_name, "wt", encoding="utf-8") as coffee:
-        print("models = models or {}", file=coffee)
-        print("""models["%s"] = {}""" % model_name, file=coffee)
-        print("""models["%s"].p = %s""" % (model_name, json.dumps(model, indent=2)), file=coffee)
-        print("""models["%s"].breakable = %s""" % (model_name, json.dumps(list(breakable), indent=2)), file=coffee)
+    print("Writing %s…" % out.name)
+    print("models = models or {}", file=out)
+    print("""models["%s"] = {}""" % model_name, file=out)
+    print("""models["%s"].p = %s""" % (model_name, json.dumps(model, indent=2)), file=out)
+    print("""models["%s"].breakable = %s""" % (model_name, json.dumps(list(breakable), indent=2)), file=out)
 
     print("Done.")
 
@@ -63,6 +60,7 @@ def trigrams(word):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument(dest="set_files", nargs=argparse.REMAINDER, type=argparse.FileType("rt"))
+    parser.add_argument("-i", "--in", dest="_in", metavar="FILE", required=True, type=argparse.FileType("rt"))
+    parser.add_argument("-o", "--out", dest="out", metavar="FILE", required=True, type=argparse.FileType("wt"))
     args = parser.parse_args()
     main(args)

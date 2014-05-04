@@ -2,11 +2,11 @@
 
 # Make models.
 rule model
-  command = python3 gen.py $in
+  command = python3 gen.py --in "$in" --out "$out"
 
-build coffee/models.human-rus.coffee: model sets/human-rus.txt
-build coffee/models.human-en-female.coffee: model sets/human-en-female.txt
-build coffee/models.human-en-male.coffee: model sets/human-en-male.txt
+build coffee/models.human-rus.coffee: model sets/human-rus.txt | gen.py
+build coffee/models.human-en-female.coffee: model sets/human-en-female.txt | gen.py
+build coffee/models.human-en-male.coffee: model sets/human-en-male.txt | gen.py
 
 # Make coffee.
 rule coffee
