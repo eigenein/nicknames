@@ -11,12 +11,13 @@ build coffee/models.human-en-male.coffee: model sets/human-en-male.txt | gen.py
 build coffee/models.human-ru-female.coffee: model sets/human-ru-female.txt | gen.py
 build coffee/models.human-ru-male.coffee: model sets/human-ru-male.txt | gen.py
 build coffee/models.elf.coffee: model sets/elf.txt | gen.py
+build coffee/models.dwarf.coffee: model sets/dwarf.txt | gen.py
 
 # Make coffee.
 rule coffee
   command = nodejs node_modules/.bin/coffeelint --quiet $in && cat $in | nodejs node_modules/.bin/coffee --compile --stdio | nodejs node_modules/.bin/uglifyjs - --output $out --comments --compress
 
-build app.js: coffee coffee/app.coffee coffee/gen.coffee coffee/models.human-en-female.coffee coffee/models.human-en-male.coffee coffee/models.human-ru-male.coffee coffee/models.human-ru-female.coffee coffee/models.elf.coffee
+build app.js: coffee coffee/app.coffee coffee/gen.coffee coffee/models.human-en-female.coffee coffee/models.human-en-male.coffee coffee/models.human-ru-male.coffee coffee/models.human-ru-female.coffee coffee/models.elf.coffee coffee/models.dwarf.coffee
 
 # LESS.
 rule less
